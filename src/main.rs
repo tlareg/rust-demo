@@ -87,6 +87,24 @@ fn print_light_state(light: &impl Light) {
 }
 
 #[derive(Debug)]
+enum TrafficLightColor {
+  Red,
+  Yellow,
+  Green,
+}
+
+impl Display for TrafficLightColor {
+  fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+    let color_string = match self {
+      TrafficLightColor::Green => "green",
+      TrafficLightColor::Red => "red",
+      TrafficLightColor::Yellow => "yellow",
+    };
+    write!(f, "{}", color_string)
+  }
+}
+
+#[derive(Debug)]
 struct TrafficLight {
   color: TrafficLightColor,
 }
@@ -106,24 +124,6 @@ impl TrafficLight {
 impl std::fmt::Display for TrafficLight {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
     write!(f, "Traffic light is {}", self.color)
-  }
-}
-
-#[derive(Debug)]
-enum TrafficLightColor {
-  Red,
-  Yellow,
-  Green,
-}
-
-impl Display for TrafficLightColor {
-  fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    let color_string = match self {
-      TrafficLightColor::Green => "green",
-      TrafficLightColor::Red => "red",
-      TrafficLightColor::Yellow => "yellow",
-    };
-    write!(f, "{}", color_string)
   }
 }
 
@@ -149,16 +149,6 @@ trait Light {
   fn get_state(&self) -> &dyn std::fmt::Debug;
 }
 
-impl Light for HouseLight {
-  fn get_name(&self) -> &str {
-    "House light"
-  }
-
-  fn get_state(&self) -> &dyn std::fmt::Debug {
-    &self.on
-  }
-}
-
 impl Light for TrafficLight {
   fn get_name(&self) -> &str {
     "Traffic light"
@@ -166,5 +156,15 @@ impl Light for TrafficLight {
 
   fn get_state(&self) -> &dyn std::fmt::Debug {
     &self.color
+  }
+}
+
+impl Light for HouseLight {
+  fn get_name(&self) -> &str {
+    "House light"
+  }
+
+  fn get_state(&self) -> &dyn std::fmt::Debug {
+    &self.on
   }
 }
