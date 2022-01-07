@@ -1,5 +1,5 @@
-// mod string_examples;
-// use string_examples::{greet, print_type_of};
+// mod string;
+// use string::{greet, print_type_of};
 
 // mod readme;
 // use readme::readme_fn;
@@ -10,8 +10,11 @@
 // mod struct_examples;
 // use struct_examples::lights_example;
 
-mod options_examples;
-use options_examples::options_example;
+// mod options_examples;
+// use options_examples::options_example;
+
+mod error_handling;
+use error_handling::error_handling_examples;
 
 fn main() {
     // greet("World".to_owned());
@@ -25,7 +28,9 @@ fn main() {
 
     // lights_example();
 
-    options_example();
+    // options_example();
+
+    error_handling_examples();
 }
 
 
